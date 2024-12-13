@@ -42,6 +42,7 @@ ChartComponent.template = "g2p_social_registry_dashboard.ChartTemplate";
 ChartComponent.props = {
     type: {type: String, optional: true},
     labels: {type: Array, optional: true},
+    title: {type: String, optional: true},
     data_label: {type: String, optional: true},
     data: {type: Array, optional: true},
     backgroundColor: {type: Array, optional: true},
