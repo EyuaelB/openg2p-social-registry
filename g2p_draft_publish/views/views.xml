@@ -1,0 +1,323 @@
+<odoo>
+    <!-- Tree View for G2PValidationStatus -->
+    <record id="view_g2p_validation_status_tree" model="ir.ui.view">
+        <field name="name">g2p.validation.status.tree</field>
+        <field name="model">g2p.validation.status</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_g2p_validation_status_form" model="ir.ui.view">
+        <field name="name">g2p.validation.status.form</field>
+        <field name="model">g2p.validation.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" string="State"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- Kanban View for G2PPartner -->
+    <!-- <record id="view_g2p_partner_kanban" model="ir.ui.view">
+        <field name="name">g2p.partner.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="validation_stage"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_kanban_card">
+                            <div class="o_kanban_details d-flex flex-column">
+                                <div class="d-flex justify-content-between">
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="">
+                                        <field decoration-warning="validation_stage == 'draft'" decoration-success="validation_stage == 'complete'" decoration-info="validation_stage == 'added'" widget="badge" name="validation_stage" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <field name="phone"/>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <div class="fw-bold">
+                                        <field name="record_type"/>
+                                    </div>
+                                    <div class="fw-bold">
+                                        <field style="width: 80px; height: 40px; border: 1px solid rgba(0, 0, 255, 0.2); border-radius: 12%; padding: 4px 12px;" name="record_from"/>
+                                    </div>
+                                </div>
+                                <div class="w-full mt-3">
+                                    <field widget="many2many_tags" name="validation_status"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record> -->
+
+    <record id="view_g2p_partner_kanban" model="ir.ui.view">
+        <field name="name">g2p.partner.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="validation_status" class="o_kanban_small_column o_kanban_project_tasks" on_create="quick_create" quick_create_view="view_g2p_validation_status_form" sample="1">
+                <!-- <kanban class="o_kanban_small_column"> -->
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="validation_stage"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="my-2 oe_kanban_global_click o_kanban_card">
+                            <div class="o_kanban_details d-flex flex-column">
+                                <div class="d-flex justify-content-between">
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="">
+                                        <field decoration-warning="validation_stage == 'draft'" decoration-success="validation_stage == 'complete'" decoration-info="validation_stage == 'added'" widget="badge" name="validation_stage" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <field name="phone"/>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <div class="fw-bold">
+                                        <field name="record_type"/>
+                                    </div>
+                                    <div class="fw-bold">
+                                        <field style="width: 80px; height: 40px; border: 1px solid rgba(0, 0, 255, 0.2); border-radius: 12%; padding: 4px 12px;" name="record_from"/>
+                                    </div>
+                                </div>
+                                <!-- <div class="w-full mt-3">
+                                    <field name="validation_status"/>
+                                </div> -->
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Tree View for G2PPartner -->
+    <record id="view_g2p_partner_tree" model="ir.ui.view">
+        <field name="name">g2p.partner.tree</field>
+        <field name="model">res.partner</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone"/>
+                <field decoration-info="validation_status != False" widget="badge" name="validation_status"/>
+                <field name="record_type"/>
+                <field name="record_from"/>
+                <field name="write_date"/>
+                <field name="validation_stage"/>
+                <field name="validation_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for G2PPartner
+    <record id="view_g2p_partner_form" model="ir.ui.view">
+        <field name="name">g2p.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="validation_stage" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="phone"/>
+                        <field name="write_date"/>
+                    </group>
+                    <group>
+                        <field name="record_type"/>
+                        <field name="record_from"/>
+                        <field name="write_date"/>
+                        <field name="validation_stage"/>
+                        <field name="validation_status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record> -->
+        <!-- 
+    <record id="view_model_tree_inherited" model="ir.ui.view">
+        <field name="name">view.model.tree inherited</field>
+        <field name="model">model</field>
+        <field name="inherit_id" ref="module_name.view_model_tree" />
+        <field name="type">tree</field>
+        <field name="mode">primary|extension</field>
+        <field name="priority" eval="16" />
+        <field name="active" eval="True" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+            </xpath>
+        </field>
+    </record> -->
+
+    <record id="view_g2p_partner_search" model="ir.ui.view">
+        <field name="name">G2PPartner Search</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Farmer Record Search">
+                <filter name="validation_stage" string="Draft" domain="[('validation_stage', '=', 'draft')]"/>
+                <filter name="validation_stage2" string="Complete" domain="[('validation_stage', '=', 'complete')]"/>
+                <filter name="validation_stage3" string="Published" domain="[('validation_stage', '=', 'added')]"/>
+                <separator/>
+                <filter name="record_from1" string="E-voucher" domain="[('record_from', 'ilike', '%E-Voucher%')]"/>
+                <filter name="record_from2" string="NMIS" domain="[('record_from', 'ilike', '%NMIS%')]"/>
+                <filter name="record_from3" string="8028" domain="[('record_from', 'ilike', '%8028%')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="validation_stage" string="Stage" domain="[]" context="{'group_by': 'validation_stage'}"/>
+                    <filter name="record_type" string="Type" domain="[]" context="{'group_by': 'record_type'}"/>
+                    <filter name="record_from" string="DB" domain="[]" context="{'group_by': 'record_from'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+
+    <record id="view_resp_form_inherited" model="ir.ui.view">
+        <field name="name">res.model.form inherited2</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="mode">primary</field>
+        <field name="priority" eval="16" />
+        <field name="active" eval="True" />
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_complete" type="object" string="Complete" invisible="validation_stage!='draft'" class="btn btn-info" />
+                    <button name="action_done" type="object" string="Publish" invisible="validation_stage!='complete'" class="btn btn-success" />
+                    <field name="validation_stage" widget="statusbar" statusbar_visible="draft,complete,added" />
+                </header>
+                <sheet>
+                    <div class="oe_title mb24">
+                        <field name="is_company" invisible="1"/>
+                        <field name="type" invisible="1"/>
+                        <h1>
+                            <field id="individual" options="{'line_breaks': False}" widget="text" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandom Freeman" invisible="is_company" required="type == 'contact'"/>
+                        </h1>
+                    </div>
+                    <group colspan="12" cols="12">
+                        <group>
+                            <field name="record_type" readonly="1"/>
+                        </group>
+                        <group >
+                            <field name="record_from" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="validation_status"/>
+                        </group>
+                        <group>
+                            <field name="write_date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <!-- Action for G2PPartner -->
+    <record id="action_g2p_partner" model="ir.actions.act_window">
+        <field name="name">G2P Partner</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_g2p_partner_search"/>
+        <field name="context">{}</field>
+    </record>
+
+    <!-- Action for G2PValidationStatus -->
+    <!-- <record id="action_g2p_validation_status" model="ir.actions.act_window">
+        <field name="name">Validation Status</field>
+        <field name="res_model">g2p.validation.status</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+    </record> -->
+
+    <!-- <record id="action_g2p_partner" model="ir.actions.act_window">
+        <field name="name">Imported Farmer Records</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{}</field>
+        <field name="domain">[('db_import', '=', True), ('message_partner_ids', 'in', [user.partner_id.id])]</field>
+        <field name="view_ids" eval="[
+        (5, 0, 0),
+        (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_g2p_partner_kanban')}),
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('view_g2p_partner_tree')}),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('view_resp_form_inherited')})
+    ]" />
+    </record> -->
+
+
+
+    <!-- <record id="action_view_res_partner_following_restriction" model="ir.actions.server">
+    <field name="name">Imported Farmer Records</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="binding_model_id" ref="base.model_res_partner"/>
+  
+    <field name="state">code</field>
+    <field name="code">
+        partner_id = env['res.partner'].browse(env.context.get('active_id'))
+        partner = env['res.partner'].browse(env.context.get('active_id'))
+        domain = [
+            ('db_import', '=', True),
+            ('message_partner_ids', 'in', [partner_id.id])
+        ]
+        
+        return {
+            'name': 'Imported Farmer Records',
+            'res_model': 'res.partner',
+            'view_mode': 'kanban,tree,form',
+            'domain': domain,
+            'view_ids': [
+                (5, 0, 0),
+                (0, 0, {'view_mode': 'kanban', 'view_id': env.ref('view_g2p_partner_kanban').id}),
+                (0, 0, {'view_mode': 'tree', 'view_id': env.ref('view_g2p_partner_tree').id}),
+                (0, 0, {'view_mode': 'form', 'view_id': env.ref('view_resp_form_inherited').id})
+            ],
+        }
+    </field>
+</record> -->
+
+
+<record id="action_view_res_partner_following_restriction" model="ir.actions.server">
+    <field name="name">Imported Farmer Records</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="state">code</field>
+    <field name="code">
+         action = model.view_imported_farmer_records()
+    </field>
+</record>
+
+
+
+    <record id="action_g2p_validation_status" model="ir.actions.act_window">
+        <field name="name">Validation Status</field>
+        <field name="res_model">g2p.validation.status</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_g2p_integration_root" name="Integrations"/>
+    <menuitem id="menu_g2p_integration_partner" name="Farmer Records" parent="menu_g2p_integration_root" action="action_view_res_partner_following_restriction"/>
+    <menuitem id="menu_g2p_integration_configurations" name="Configurations" parent="menu_g2p_integration_root"/>
+    <menuitem id="menu_g2p_validation_status" name="Validation Status" parent="menu_g2p_integration_configurations" action="action_g2p_validation_status"/>
+</odoo>
