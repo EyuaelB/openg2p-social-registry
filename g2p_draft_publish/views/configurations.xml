@@ -1,0 +1,40 @@
+<odoo>
+
+<record id="view_g2p_validation_status_tree" model="ir.ui.view">
+    <field name="name">g2p.validation.status.tree</field>
+    <field name="model">g2p.validation.status</field>
+    <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name="name"/>
+        </tree>
+    </field>
+</record>
+
+
+<record id="view_g2p_validation_status_form" model="ir.ui.view">
+    <field name="name">g2p.validation.status.form</field>
+    <field name="model">g2p.validation.status</field>
+    <field name="arch" type="xml">
+        <form>
+            <group>
+                <field name="name" string="State"/>
+            </group>
+        </form>
+    </field>
+</record>
+
+
+<record id="action_g2p_validation_status" model="ir.actions.act_window">
+    <field name="name">Enrichment Status</field>
+    <field name="res_model">g2p.validation.status</field>
+    <field name="view_mode">tree</field>
+    <field name="context">{}</field>
+</record>
+
+<menuitem id="menu_g2p_integration_root" name="Draft Publish"  web_icon="g2p_draft_publish,static/description/icon.png"/>
+
+<menuitem id="menu_g2p_integration_configurations" name="Configurations" parent="menu_g2p_integration_root" sequence="600" groups="group_int_admin"/>
+<menuitem id="menu_g2p_validation_status" name="Enrichment Status" parent="menu_g2p_integration_configurations" action="action_g2p_validation_status"/>
+
+
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record model="ir.ui.view" id="mail_wizard_invite_form_multiple">
+    <field name="name">Add Followers</field>
+    <field name="model">mail.wizard.invite</field>
+    <field name="inherit_id" ref="mail.mail_wizard_invite_form"/>
+      <field name="mode">primary</field>
+    <field name="arch" type="xml">
+
+        <xpath expr="//button[@name='add_followers']" position="replace">
+            <button string="Add Followers"
+                    name="add_followers_for_multiple_records" type="object" class="btn-primary" data-hotkey="q"/>
+        </xpath>
+
+    </field>
+</record>
+
+  <record id="base_imported_record_action_server" model="ir.actions.server">
+        <field  name="name" >Add Followers</field>
+        <field name="model_id" ref="model_g2p_imported_record" />
+        <field name="binding_model_id" ref="model_g2p_imported_record" />
+        <field name="state">code</field>
+        <field name="code">
+
+             action = {
+                'type': 'ir.actions.act_window',
+                'name': 'Add Followers for Multiple Records',
+                'res_model': 'mail.wizard.invite',
+                'view_mode': 'form',
+                'views': [(env.ref('g2p_draft_publish.mail_wizard_invite_form_multiple').id, 'form')],
+                'target': 'new',
+                'context': {
+                    'default_res_model': 'res.partner',
+            },
+        }
+        </field>
+    </record>
+
+
+
+
+</odoo>

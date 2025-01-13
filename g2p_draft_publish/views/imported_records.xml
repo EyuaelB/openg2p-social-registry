@@ -1,0 +1,161 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_imported_record_tree" model="ir.ui.view">
+        <field name="name">g2p.imported.record.tree</field>
+        <field name="model">g2p.imported.record</field>
+        <field name="arch" type="xml">
+            <tree string="Imported Records">
+                <field name="given_name"/>
+                <field name="family_name"/>
+                <field name="gf_name_eng"/>
+                <field name="phone"/>
+                <field name="gender"/>
+                <field name="region"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_g2p_partner_kanban" model="ir.ui.view">
+        <field name="name">g2p.imported.record</field>
+        <field name="model">g2p.imported.record</field>
+        <field name="arch" type="xml">
+            <!-- <kanban default_group_by="validation_status" class="o_kanban_small_column o_kanban_project_tasks" on_create="quick_create" quick_create_view="view_g2p_validation_status_form" sample="1"> -->
+            <kanban class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="phone"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="my-2 oe_kanban_global_click o_kanban_card">
+                            <div class="o_kanban_details d-flex flex-column">
+                                <div class="d-flex justify-content-between">
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="">
+                                        <field decoration-warning="state == 'draft'" decoration-success="state == 'moved'" widget="badge" name="state" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <field name="phone"/>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <div class="fw-bold">
+                                        <field name="record_type"/>
+                                    </div>
+                                    <div class="fw-bold">
+                                        <field style="width: 80px; height: 40px; border: 1px solid rgba(0, 0, 255, 0.2); border-radius: 12%; padding: 4px 12px;" name="record_from"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <!-- Kanban View -->
+    <!-- <record id="view_imported_record_kanban" model="ir.ui.view">
+        <field name="name">g2p.imported.record.kanban</field>
+        <field name="model">g2p.imported.record</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column">
+                <field name="first_name"/>
+                <field name="father_name"/>
+                <field name="region"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <strong>
+                                <field name="given_name"/>
+                                <field name="family_name"/>
+                                <field name="addl_name"/>
+                            </strong>
+                            <div>
+                                <field name="region"/>
+                            </div>
+                            <div>
+                                <field name="phone"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record> -->
+    <!-- Form View -->
+    
+    <record id="view_imported_record_form" model="ir.ui.view">
+        <field name="name">g2p.imported.record.form</field>
+        <field name="model">g2p.imported.record</field>
+        <field name="arch" type="xml">
+            <form string="Imported Record">
+                <header>
+                    <button name="action_view_draft_records" type="object" string="Open Draft" class="oe_stat_button" invisible="state!='moved'" icon="fa-pencil"/>
+                    <button name="create_draft_imported_record" type="object" string="Create Draft" invisible="state!='draft'" class="btn btn-info" />
+                    <button name="action_to_draft" type="object" string="Remove Draft" invisible="state!='moved'" class="btn btn-warning"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,moved" />
+                </header>
+                <sheet>
+                    <div class="oe_title mb24">
+                        <h1>
+                            <field id="individual" options="{'line_breaks': False}" widget="text" class="text-break" name="name" default_focus="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="given_name"/>
+                        <field name="family_name"/>
+                        <field name="gf_name_eng"/>
+                    </group>
+                    <group>
+                    <group>
+                        <field name="phone"/>
+                        <field name="gender"/>
+                    </group>
+                    <group>
+                        <field name="region"/>
+                        
+                    </group>
+                    </group>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" options="{'post_refresh':True}" groups="base.group_system" />
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="imported_set_to_draft_view_message_form" model="ir.ui.view">
+        <field name="name">message.form</field>
+        <field name="model">g2p.imported.record</field>
+        <field name="arch" type="xml">
+            <form string="Message" nolabel="1" width="300">
+                <div class="oe_button_box">
+                    <div>
+                        <span class="oe_title">Any Draft Associated with this imported record has been deleted and state has been set to draft.</span>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+
+
+
+
+
+    <!-- Action -->
+    <record id="action_imported_record" model="ir.actions.act_window">
+        <field name="name">Imported</field>
+        <field name="res_model">g2p.imported.record</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    <!-- Menu -->
+    <menuitem id="menu_imported_record" name="Imported" parent="g2p_draft_publish.menu_g2p_integration_root" action="action_imported_record" sequence="1"/>
+</odoo>
