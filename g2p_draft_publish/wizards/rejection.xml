@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-  <record id="rejection_form_wizard_view" model="ir.ui.view">
-    <field name="name">draft.imported.record.form</field>
-    <field name="model">draft.imported.record</field>
-    <field name="arch" type="xml">
-        <form>
-            <group>
-                <field name="rejection_reason"/>
-            </group>
-
-            <footer>
-                <button name="action_reject" string="Reject" type="object"/>
-            </footer>
-        </form>
-    </field>
-</record>
 
 
 
@@ -25,14 +10,23 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="rejection_reason"/>
+                    <field name="rejection_reason" />
                 </group>
                 <footer>
-                    <button name="confirm_rejection" string="Confirm Rejection" type="object" class="btn btn-warning"/>
+                    <button
+                        name="confirm_rejection"
+                        string="Confirm Rejection"
+                        type="object"
+                        class="btn btn-warning"
+                    />
                 </footer>
             </form>
         </field>
     </record>
+
+
+
+
 
 
 

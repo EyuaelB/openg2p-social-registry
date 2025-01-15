@@ -5,7 +5,7 @@
     <field name="model">g2p.validation.status</field>
     <field name="arch" type="xml">
         <tree editable="bottom">
-            <field name="name"/>
+            <field name="name" />
         </tree>
     </field>
 </record>
@@ -17,7 +17,7 @@
     <field name="arch" type="xml">
         <form>
             <group>
-                <field name="name" string="State"/>
+                <field name="name" string="State" />
             </group>
         </form>
     </field>
@@ -31,10 +31,25 @@
     <field name="context">{}</field>
 </record>
 
-<menuitem id="menu_g2p_integration_root" name="Draft Publish"  web_icon="g2p_draft_publish,static/description/icon.png"/>
+<menuitem
+        id="menu_g2p_integration_root"
+        name="Draft Publish"
+        web_icon="g2p_draft_publish,static/description/icon.png"
+    />
 
-<menuitem id="menu_g2p_integration_configurations" name="Configurations" parent="menu_g2p_integration_root" sequence="600" groups="group_int_admin"/>
-<menuitem id="menu_g2p_validation_status" name="Enrichment Status" parent="menu_g2p_integration_configurations" action="action_g2p_validation_status"/>
+<menuitem
+        id="menu_g2p_integration_configurations"
+        name="Configurations"
+        parent="menu_g2p_integration_root"
+        sequence="600"
+        groups="group_int_admin"
+    />
+<menuitem
+        id="menu_g2p_validation_status"
+        name="Enrichment Status"
+        parent="menu_g2p_integration_configurations"
+        action="action_g2p_validation_status"
+    />
 
 
 </odoo>
